@@ -7,9 +7,9 @@ import (
 	"context"
 	"errors"
 
-	"github.com/k3s-io/kine/pkg/drivers/generic"
-	"github.com/k3s-io/kine/pkg/server"
 	"github.com/prometheus/client_golang/prometheus"
+	"github.com/tashima42/kine/pkg/drivers/generic"
+	"github.com/tashima42/kine/pkg/server"
 )
 
 func New(ctx context.Context, datasourceName string, connPoolConfig generic.ConnectionPoolConfig, metricsRegisterer prometheus.Registerer) (server.Backend, error) {

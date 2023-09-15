@@ -15,12 +15,12 @@ import (
 	"github.com/canonical/go-dqlite"
 	"github.com/canonical/go-dqlite/client"
 	"github.com/canonical/go-dqlite/driver"
-	"github.com/k3s-io/kine/pkg/drivers/generic"
-	"github.com/k3s-io/kine/pkg/drivers/sqlite"
-	"github.com/k3s-io/kine/pkg/server"
 	"github.com/pkg/errors"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/sirupsen/logrus"
+	"github.com/tashima42/kine/pkg/drivers/generic"
+	"github.com/tashima42/kine/pkg/drivers/sqlite"
+	"github.com/tashima42/kine/pkg/server"
 )
 
 var (
