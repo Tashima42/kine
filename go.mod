@@ -1,4 +1,4 @@
-module github.com/k3s-io/kine
+module github.com/tashima42/kine
 
 go 1.19
 
@@ -8,6 +8,7 @@ require (
 	github.com/go-sql-driver/mysql v1.7.1
 	github.com/jackc/pgerrcode v0.0.0-20220416144525-469b46aa5efa
 	github.com/jackc/pgx/v5 v5.4.2
+	github.com/k3s-io/kine v0.0.0-00010101000000-000000000000
 	github.com/klauspost/compress v1.16.6
 	github.com/mattn/go-sqlite3 v1.14.17
 	github.com/nats-io/jsm.go v0.0.31-0.20220317133147-fe318f464eee
@@ -58,7 +59,6 @@ require (
 	github.com/prometheus/client_model v0.3.0 // indirect
 	github.com/prometheus/common v0.37.0 // indirect
 	github.com/prometheus/procfs v0.8.0 // indirect
-	github.com/rogpeppe/go-internal v1.10.0 // indirect
 	github.com/russross/blackfriday/v2 v2.0.1 // indirect
 	github.com/shurcooL/sanitized_anchor_name v1.0.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
@@ -89,3 +89,5 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	sigs.k8s.io/yaml v1.3.0 // indirect
 )
+
+replace github.com/k3s-io/kine => github.com/Tashima42/kine v0.10.3
