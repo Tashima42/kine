@@ -110,6 +110,7 @@ func (s *SQLLog) compactor(interval time.Duration) {
 	compactRev, _ := s.d.GetCompactRevision(s.ctx)
 	targetCompactRev, _ := s.d.CurrentRevision(s.ctx)
 	logrus.Tracef("COMPACT starting compactRev=%d targetCompactRev=%d", compactRev, targetCompactRev)
+	defer t.Stop()
 
 outer:
 	for {
@@ -221,7 +222,14 @@ func (s *SQLLog) compact(compactRev int64, targetCompactRev int64) (int64, int64
 	}
 
 	t.MustCommit()
-	logrus.Infof("COMPACT deleted %d rows from %d revisions in %s - compacted to %d/%d", deletedRows, (targetCompactRev - compactRev), time.Since(start), targetCompactRev, currentRev)
+	logrus.Infof(
+		"COMPACT deleted %d rows from %d revisions in %s - compacted to %d/%d",
+		deletedRows,
+		(targetCompactRev - compactRev),
+		time.Since(start),
+		targetCompactRev,
+		currentRev,
+	)
 
 	return targetCompactRev, currentRev, nil
 }
@@ -253,7 +261,12 @@ func (s *SQLLog) After(ctx context.Context, prefix string, revision, limit int64
 	return rev, result, err
 }
 
-func (s *SQLLog) List(ctx context.Context, prefix, startKey string, limit, revision int64, includeDeleted bool) (int64, []*server.Event, error) {
+func (s *SQLLog) List(
+	ctx context.Context,
+	prefix, startKey string,
+	limit, revision int64,
+	includeDeleted bool,
+) (int64, []*server.Event, error) {
 	var (
 		rows *sql.Rows
 		err  error
@@ -432,7 +445,13 @@ func (s *SQLLog) poll(result chan interface{}, pollStart int64) {
 				if canSkipRevision(next, skip, skipTime) {
 					// This situation should never happen, but we have it here as a fallback just for unknown reasons
 					// we don't want to pause all watches forever
-					logrus.Errorf("GAP %s, revision=%d, delete=%v, next=%d", event.KV.Key, event.KV.ModRevision, event.Delete, next)
+					logrus.Errorf(
+						"GAP %s, revision=%d, delete=%v, next=%d",
+						event.KV.Key,
+						event.KV.ModRevision,
+						event.Delete,
+						next,
+					)
 				} else if skip != next {
 					// This is the first time we have encountered this missing revision, so record time start
 					// and trigger a quick retry for simple out of order events
