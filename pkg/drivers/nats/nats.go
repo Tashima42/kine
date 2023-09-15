@@ -14,13 +14,13 @@ import (
 	"sync"
 	"time"
 
+	"github.com/k3s-io/kine/pkg/drivers/nats/kv"
+	natsserver "github.com/k3s-io/kine/pkg/drivers/nats/server"
+	"github.com/k3s-io/kine/pkg/server"
+	"github.com/k3s-io/kine/pkg/tls"
 	"github.com/nats-io/jsm.go/natscontext"
 	"github.com/nats-io/nats.go"
 	"github.com/sirupsen/logrus"
-	"github.com/tashima42/kine/pkg/drivers/nats/kv"
-	natsserver "github.com/tashima42/kine/pkg/drivers/nats/server"
-	"github.com/tashima42/kine/pkg/server"
-	"github.com/tashima42/kine/pkg/tls"
 )
 
 const (
